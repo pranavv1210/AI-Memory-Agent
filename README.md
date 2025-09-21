@@ -84,6 +84,7 @@ source venv/bin/activate
 
 ### 4. Install Dependencies
 
+<<<<<<< HEAD
 
 # AI Memory Agent
 
@@ -180,6 +181,8 @@ source venv/bin/activate
 
 ### 4. Install Dependencies
 
+=======
+>>>>>>> 9c296a2e49b67d26160bd188523f99e3c9fab3e2
 ```bash
 pip install -r requirements.txt
 ```
@@ -219,6 +222,7 @@ Interact with the agent, view and clear memories in the sidebar.
 
 ---
 
+<<<<<<< HEAD
 ## UI Walkthrough
 
 1. **Main Chat Area:**
@@ -254,6 +258,15 @@ Interact with the agent, view and clear memories in the sidebar.
   - Example: "Do I like outdoor activities?" matches "I love hiking."
 5. **Context Augmentation:**
   - Retrieved memories are fed back to the LLM to generate more informed, personalized responses.
+=======
+## How the Memory Mechanism Works
+
+1. **Information Extraction:** The agent identifies important facts/preferences from user input.
+2. **Embedding Generation:** Converts info into semantic vectors using Gemini or OpenAI embeddings.
+3. **Storage:** Embeddings and metadata are stored in ChromaDB, scoped by user ID.
+4. **Retrieval:** Queries are embedded and matched to stored memories for semantic recall.
+5. **Context Augmentation:** Retrieved memories are used to inform agent responses.
+>>>>>>> 9c296a2e49b67d26160bd188523f99e3c9fab3e2
 
 ---
 
@@ -283,6 +296,7 @@ See `docs/ui_design.md` for details. The app features:
 
 ---
 
+<<<<<<< HEAD
 ## Troubleshooting & Best Practices
 
 - **Missing Files in Repo:** Ensure all files are at the repo root before pushing.
@@ -293,6 +307,8 @@ See `docs/ui_design.md` for details. The app features:
 
 ---
 
+=======
+>>>>>>> 9c296a2e49b67d26160bd188523f99e3c9fab3e2
 ## Contributing
 
 Pull requests and issues are welcome! Please fork the repo and submit changes via PR.

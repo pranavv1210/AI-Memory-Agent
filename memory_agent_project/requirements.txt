@@ -1,0 +1,22 @@
+# LangChain: Framework for building LLM applications
+langchain
+langchain-community
+langchain-openai
+langchain-chroma
+langchain-google-genai
+
+# OpenAI: For accessing OpenAI's language models (like GPT-4)
+# (Commented out as we're using Google Gemini for free tier)
+# openai>=1.0.0
+
+# ChromaDB: Vector database for storing and retrieving memories
+chromadb==0.4.24
+
+# Streamlit: For building the web user interface
+streamlit==1.33.0
+
+# python-dotenv: To load environment variables from a .env file (for API keys)
+python-dotenv==1.0.1
+
+# Optional: For voice-to-text (if integrating Whisper later)
+# openai-whisper==20231117
