@@ -154,12 +154,8 @@ def clear_user_memories(user_id: str, collection_name: str = "user_memories"):
             embedding_function=embeddings,
             persist_directory="./chroma_db_data"
         )
-        vector_store.delete_collection()
-        Chroma(
-            collection_name=collection_name,
-            embedding_function=embeddings,
-            persist_directory="./chroma_db_data"
-        )
+        # The collection is shared across users; only remove this user's records.
+        vector_store.delete(where={"user_id": user_id})
         print(f"All memories for user {user_id} in collection {collection_name} have been cleared.")
     except Exception as e:
         print(f"Error clearing memories: {e}")
