@@ -72,17 +72,23 @@ with st.sidebar:
     st.info(f"Current User ID: `{st.session_state.user_id}`")
 
     if st.button("Clear All Memories for this User"):
-        if st.session_state.get('confirm_clear', False):
-            clear_user_memories(st.session_state.user_id)
-            st.session_state.chat_history = []
-            st.session_state.confirm_clear = False
-            st.experimental_rerun()
-        else:
-            st.session_state.confirm_clear = True
-            st.warning("Are you sure? This will delete ALL memories for this user. Click again to confirm.")
+        st.session_state.confirm_clear = True
 
-    if st.session_state.get('confirm_clear', False) and not st.button("Confirm Clear"):
-        pass
+    if st.session_state.get("confirm_clear", False):
+        st.warning("Are you sure? This will delete ALL memories for this user.")
+        confirm_col, cancel_col = st.columns(2)
+
+        with confirm_col:
+            if st.button("Confirm Clear"):
+                clear_user_memories(st.session_state.user_id)
+                st.session_state.chat_history = []
+                st.session_state.confirm_clear = False
+                st.experimental_rerun()
+
+        with cancel_col:
+            if st.button("Cancel"):
+                st.session_state.confirm_clear = False
+                st.experimental_rerun()
 
     st.markdown("---")
     st.subheader("Current Stored Memories:")
