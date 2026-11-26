@@ -34,7 +34,7 @@ class MemoryStore:
             persist_directory="./chroma_db_data"
         )
         os.makedirs("./chroma_db_data", exist_ok=True)
-        print(f"MemoryStore initialized for user: {user_id} using collection: {collection_name}")
+        print("MemoryStore initialized.")
 
 
     def save_memory(self, content: str, context: str = "") -> None:
@@ -45,7 +45,7 @@ class MemoryStore:
             context (str): Additional context related to the memory.
         """
         doc = Document(page_content=content, metadata={"user_id": self.user_id, "context": context})
-        print(f"Saving memory for user {self.user_id}: '{content}' (Context: '{context}')")
+        
         self.vector_store.add_documents([doc])
         self.vector_store.persist()
         print("Memory saved and persisted.")
@@ -59,7 +59,7 @@ class MemoryStore:
         Returns:
             List[Dict[str, str]]: A list of dictionaries, each representing a retrieved memory.
         """
-        print(f"Retrieving memories for user {self.user_id} with query: '{query}'")
+        
         results = self.vector_store.similarity_search(query, k=k, filter={"user_id": self.user_id})
 
         memories = []
@@ -77,7 +77,7 @@ class MemoryStore:
         Returns:
             List[Dict[str, str]]: A list of dictionaries, each representing a retrieved memory.
         """
-        print(f"Retrieving all memories for user {self.user_id} for debugging.")
+        
         all_docs = self.vector_store.get(where={"user_id": self.user_id}, include=['documents', 'metadatas'])
 
         memories = []
@@ -104,9 +104,9 @@ class MemoryTools:
         """
         try:
             self.memory_store.save_memory(content=content, context=context)
-            return f"Memory '{content}' saved successfully."
+            return "Memory saved successfully."
         except Exception as e:
-            return f"Failed to save memory: {e}"
+            return "Failed to save memory."
 
     def retrieve_user_memories(self, query: str, k: int = 3) -> List[Dict[str, str]]:
         """
@@ -120,9 +120,9 @@ class MemoryTools:
                 ])
                 return f"Retrieved memories:\n{formatted_memories}"
             else:
-                return f"No relevant memories found for query '{query}'."
+                return "No relevant memories found."
         except Exception as e:
-            return f"Failed to retrieve memories: {e}"
+            return "Failed to retrieve memories."
 
 def get_tools(user_id: str):
     memory_tools = MemoryTools(user_id)
@@ -146,7 +146,7 @@ def clear_user_memories(user_id: str, collection_name: str = "user_memories"):
     Clears all memories for a specific user from the ChromaDB collection.
     WARNING: This will permanently delete all memories for the specified user.
     """
-    print(f"Attempting to clear memories for user: {user_id} from collection: {collection_name}")
+    
     try:
         embeddings = GoogleGenerativeAIEmbeddings(model="text-embedding-004", google_api_key=GOOGLE_API_KEY)
         vector_store = Chroma(
@@ -156,6 +156,6 @@ def clear_user_memories(user_id: str, collection_name: str = "user_memories"):
         )
         # The collection is shared across users; only remove this user's records.
         vector_store.delete(where={"user_id": user_id})
-        print(f"All memories for user {user_id} in collection {collection_name} have been cleared.")
+        print("Memories cleared.")
     except Exception as e:
-        print(f"Error clearing memories: {e}")
+        print("Error clearing memories.")
