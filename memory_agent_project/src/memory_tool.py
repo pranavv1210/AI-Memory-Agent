@@ -60,6 +60,9 @@ class MemoryStore:
             List[Dict[str, str]]: A list of dictionaries, each representing a retrieved memory.
         """
         
+        if isinstance(k, bool) or not isinstance(k, int) or k < 1:
+            raise ValueError("k must be a positive integer.")
+        k = min(k, 20)
         results = self.vector_store.similarity_search(query, k=k, filter={"user_id": self.user_id})
 
         memories = []
